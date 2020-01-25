@@ -158,7 +158,6 @@ class GameModelTests( TestCase ):
         self.assertEquals( game.letters_guessed, expectedLettersGuessed )
 
     ### is_game_over field
-    # TODO: add tests
     # HINT: considering adding a fixture or other widely scoped variables if you feel ]hat will
     #  make this easier
 

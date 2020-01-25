@@ -69,7 +69,19 @@ class GameApiViewTests( TestCase ):
 
 
     ### GET solution view
-    # TODO: Add tests for Getting a game's solution
     # HINT: remember the `setUp` fixture that is in this test class, 
     #   it constructs things that might be useful
+    def test_game_solution_respond_with_404_when_game_not_found( self ):
+        with patch.object( Game.objects, 'get' ) as mock_get:
+            mock_get.side_effect = Game.DoesNotExist
 
+            response = game_solution( self.mock_get_request, 23 )
+            self.assertEquals(response.status_code, 404)
+    
+    def test_game_solution_respond_with_game_solution_in_JSON( self ):
+        expected_response_solution = {'solution': 'TESTWORD'}
+        with patch.object( Game.objects, 'get' ) as mock_get:
+            mock_get.return_value = self.mock_game
+
+            response = game_solution( self.mock_get_request )
+            self.assertEquals( response.data, expected_response_solution)
