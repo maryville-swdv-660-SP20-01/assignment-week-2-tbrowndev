@@ -1,7 +1,8 @@
+from django.core.exceptions import ValidationError
 from django.test import TestCase
+
 from game_api.models import Game
 
-from django.core.exceptions import ValidationError
 
 class GameModelTests( TestCase ):
 
@@ -52,6 +53,8 @@ class GameModelTests( TestCase ):
         )
 
         game.handleGuess('X')
+        if 'X' not in game.word:
+            expectedGuessesTaken = expectedGuessesTaken + 1
         self.assertEquals( expectedGuessesTaken, game.guesses_taken )
     
 
